@@ -317,8 +317,11 @@ require('lazy').setup({
         { '<leader>d', group = '[D]ocument' },
         { '<leader>r', group = '[R]ename' },
         { '<leader>s', group = '[S]earch' },
+        { '<leader>S', group = '[S]plit' },
         { '<leader>w', group = '[W]orkspace' },
         { '<leader>t', group = '[T]oggle' },
+        { '<leader>tt', group = '[T]erminal [T]oggle', mode = { 'n' } },
+        { '<leader>T', group = '[T]ab' },
         { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
       },
     },
@@ -1050,6 +1053,21 @@ require('lazy').setup({
 
 --- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
+
+require('toggleterm').setup {
+  open_mapping = [[<c-\>]],
+  direction = 'float',
+}
+
+local Terminal = require('toggleterm.terminal').Terminal
+
+vim.keymap.set('n', '<leader>tt', function()
+  Terminal:new({ direction = 'horizontal' }):toggle()
+end, { desc = '[T]erminal: [T]oggle horizontal' })
+
+vim.keymap.set('n', '<leader>tf', function()
+  Terminal:new({ direction = 'float' }):toggle()
+end, { desc = '[T]erminal: [F]loat' })
 
 -- Tab keybindings
 vim.keymap.set('n', '<leader>TN', function()
